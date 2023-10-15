@@ -1,0 +1,36 @@
+package views;
+
+import controllers.EmpleadoController;
+
+public class EmpleadoView {
+
+	public static void main(String[] args) {
+		
+		String empleado;
+		
+		//------------CREAR EMPLEADO---------------------------
+		
+		//empleado = new EmpleadoController().createEmpleado("Salazar Merino", "Juan Antonio", "25", "Masculino", 1050);
+		//empleado = new EmpleadoController().createEmpleado("Lopez Fernandez", "Ana Maria", "22", "Femenino", 1600);
+		//empleado = new EmpleadoController().createEmpleado("Lujan Ambrosio", "Diego Luis", "35", "Masculino", 2100);
+		
+		//------------BUSCAR EMPLEADO---------------------------
+		
+		//empleado = new EmpleadoController().getEmpleado(3);
+		
+		//------------ELIMINAR EMPLEADO---------------------------
+		
+		//empleado = new EmpleadoController().deleteEmpleado(4);
+		
+		//------------ACTUALIZAR EMPLEADO---------------------------
+	
+		empleado = new EmpleadoController().updateEmpleado(1, "Martin");
+		
+			
+		
+		System.out.println(empleado);
+		
+		
+	}
+
+}

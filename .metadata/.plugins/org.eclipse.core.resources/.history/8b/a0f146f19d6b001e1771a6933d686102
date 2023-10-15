@@ -1,0 +1,115 @@
+package controllers;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import models.Empleado;
+
+public class EmpleadoController {
+	
+		//Crear Empleado
+	
+		public String createEmpleado(String apellido, String nombre, String edad, String sexo, double salario) {
+			
+			SessionFactory sessionFactory;
+			sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Empleado.class).buildSessionFactory();
+			
+			Session session;
+			session = sessionFactory.openSession();
+			
+			try {
+				Empleado empleado;
+				empleado = new Empleado(apellido,nombre,edad,sexo,salario);
+				
+				session.beginTransaction();
+				session.save(empleado);
+				session.getTransaction().commit();
+				
+				sessionFactory.close();
+				return "Empleado Creado";
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return "Error al crear Empleado";
+		}
+		
+		//Buscar Empleado
+		
+		public String getEmpleado(int id) {
+			SessionFactory sessionFactory;
+			sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Empleado.class).buildSessionFactory();
+			
+			Session session;
+			session = sessionFactory.openSession();
+			
+			try {
+				session.beginTransaction();
+				Empleado empleado = session.get(Empleado.class, id);
+				session.getTransaction().commit();
+				
+				sessionFactory.close();
+				
+				return empleado.toString();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return "Empleado no existe";
+		}
+		
+		//Eliminar Empleado
+		
+		public String deleteEmpleado(int id) {
+			SessionFactory sessionFactory;
+			sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Empleado.class).buildSessionFactory();
+			
+			Session session;
+			session = sessionFactory.openSession();
+			
+			try {
+				
+				session.beginTransaction();
+				Empleado empleado = session.get(Empleado.class, id);
+				session.delete(empleado);
+				session.getTransaction().commit();
+				
+				sessionFactory.close();
+				
+				return "Empleado Eliminado";
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return "Empleado no eliminado";
+		}
+		
+		//Actualizar Empleado
+		
+		public String updateEmpleado(int id, String nombre) {
+			SessionFactory sessionFactory;
+			sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Empleado.class).buildSessionFactory();
+			
+			Session session;
+			session = sessionFactory.openSession();
+			
+			try {
+				session.beginTransaction();
+				Empleado empleado = session.get(Empleado.class, id);
+				empleado.setNombres(nombre);
+				session.update(empleado);
+				session.getTransaction().commit();
+				
+				sessionFactory.close();
+				
+				return "Empleado Actualizado";
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return "Empleado No Actualizado";
+		}
+		
+
+}
